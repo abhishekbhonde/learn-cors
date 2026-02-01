@@ -13,14 +13,14 @@ const SECTIONS = [
         title: 'Full Overview',
         content: `CORS (Cross-Origin Resource Sharing) is a fundamental web security mechanism that allows or restricts requested resources on a web page to be requested from another domain outside the domain from which the first resource was served.
 
-Imagine you are visiting **website-a.com**. If that website tries to fetch data from **api.website-b.com**, the browser intervenes. Without CORS, a malicious site could easily make requests to your bank's API or your email provider's server in the background using your session cookies.
+Imagine you are visiting website-a.com. If that website tries to fetch data from api.website-b.com, the browser intervenes. Without CORS, a malicious site could easily make requests to your bank's API or your email provider's server in the background using your session cookies.
 
-CORS provides a way for a server to explicitly say: "I allow these specific origins to access my resources, and here are the methods they are allowed to use." It is a delicate balance between **Interoperability** (making the web work together) and **Security** (protecting user data).`
+CORS provides a way for a server to explicitly say: "I allow these specific origins to access my resources, and here are the methods they are allowed to use." It is a delicate balance between Interoperability (making the web work together) and Security (protecting user data).`
     },
     {
         id: 'intro',
         title: 'What Problem does CORS Solve?',
-        content: `The primary problem is **Unauthorized Cross-Origin Data Access**. 
+        content: `The primary problem is Unauthorized Cross-Origin Data Access. 
 
 Before CORS, if a script from origin A attempted to read data from origin B, it was strictly forbidden by the browser. However, as the web grew into an ecosystem of APIs, we needed a controlled way to "punch holes" in this security wall.
 
@@ -29,70 +29,70 @@ CORS allows servers to share resources across different origins while ensuring t
     {
         id: 'sop',
         title: 'The Same-Origin Policy (SOP)',
-        content: `CORS is actually an *exception* to the **Same-Origin Policy**.
+        content: `CORS is actually an exception to the Same-Origin Policy.
 
 Two URLs have the same origin if they have identical:
-1. **Protocol** (e.g., https://)
-2. **Host** (e.g., example.com)
-3. **Port** (e.g., :443)
+1. Protocol (e.g., https://)
+2. Host (e.g., example.com)
+3. Port (e.g., :443)
 
-**Example Comparison (from https://site.com:80):**
-- ✅ https://site.com:80/page.html (Same Origin)
-- ❌ http://site.com:80/page.html (Different Protocol)
-- ❌ https://api.site.com:80/ (Different Host)
-- ❌ https://site.com:8080/ (Different Port)
+Example Comparison (from https://site.com:80):
+- https://site.com:80/page.html (Same Origin)
+- http://site.com:80/page.html (Different Protocol)
+- https://api.site.com:80/ (Different Host)
+- https://site.com:8080/ (Different Port)
 
-The SOP is the "Default Security" of the browser. CORS is the "Configured Permission" granted by the server.`
+The SOP is the default security of the browser. CORS is the configured permission granted by the server.`
     },
     {
         id: 'simple',
         title: 'Simple Requests vs. Preflighted',
         content: `Browsers categorize requests into two types to optimize performance while maintaining security.
 
-### 1. Simple Requests
-These are requests that browsers deem "safe" enough to send immediately without asking for permission first. They must use methods: **GET, HEAD, or POST**.
-Headers are limited to: **Accept, Accept-Language, Content-Language, and Content-Type** (limited to text/plain, multipart/form-data, or application/x-www-form-urlencoded).
+1. Simple Requests
+These are requests that browsers deem safe enough to send immediately without asking for permission first. They must use methods: GET, HEAD, or POST.
+Headers are limited to: Accept, Accept-Language, Content-Language, and Content-Type (limited to text/plain, multipart/form-data, or application/x-www-form-urlencoded).
 
-### 2. Preflighted Requests
-If a request is not "simple" (e.g., it uses **JSON**, **PUT**, **DELETE**, or custom headers like **Authorization**), the browser enters a "Wait Mode". It sends a preliminary check called an **OPTIONS** request before the real one.`
+2. Preflighted Requests
+If a request is not simple (e.g., it uses JSON, PUT, DELETE, or custom headers like Authorization), the browser enters a Wait Mode. It sends a preliminary check called an OPTIONS request before the real one.`
     },
     {
         id: 'preflight',
         title: 'The Preflight (OPTIONS) Mechanism',
-        content: `The Preflight is like a "Security Handshake".
+        content: `The Preflight is like a Security Handshake.
 
-**Step 1:** The browser sends an **OPTIONS** request to the server.
-**Step 2:** The request includes headers like \`Access-Control-Request-Method\` (e.g., PUT) and \`Access-Control-Request-Headers\` (e.g., Authorization).
-**Step 3:** The server inspects these. If it allows them, it responds with \`Access-Control-Allow-Origin\`, \`Methods\`, and \`Headers\`.
-**Step 4:** The browser only sends the *actual* request if the preflight response is successful.
+Step 1: The browser sends an OPTIONS request to the server.
+Step 2: The request includes headers like Access-Control-Request-Method (e.g., PUT) and Access-Control-Request-Headers (e.g., Authorization).
+Step 3: The server inspects these. If it allows them, it responds with Access-Control-Allow-Origin, Methods, and Headers.
+Step 4: The browser only sends the actual request if the preflight response is successful.
 
-**Why do we need this?** It protects legacy servers that were built before CORS and might perform dangerous actions on PUT/DELETE requests without checking for cross-origin permissions.`
+Why do we need this? It protects legacy servers that were built before CORS and might perform dangerous actions on PUT/DELETE requests without checking for cross-origin permissions.`
     },
     {
         id: 'headers',
         title: 'Key CORS Response Headers',
-        content: `These are the headers your **Server** must send to the **Browser**:
+        content: `These are the headers your Server must send to the Browser:
 
-- **Access-Control-Allow-Origin**: The most important one. Can be \`*\` (everything), or a specific origin like \`https://app.com\`.
-- **Access-Control-Allow-Methods**: e.g., \`GET, POST, OPTIONS, PUT\`.
-- **Access-Control-Allow-Headers**: e.g., \`Content-Type, Authorization\`.
-- **Access-Control-Allow-Credentials**: Set to \`true\` if you want to allow sending cookies.
-- **Access-Control-Max-Age**: Tells the browser how many seconds to cache the preflight result (to avoid sending OPTIONS for every single request).`
+- Access-Control-Allow-Origin: The most important one. Can be * (everything), or a specific origin like https://app.com.
+- Access-Control-Allow-Methods: e.g., GET, POST, OPTIONS, PUT.
+- Access-Control-Allow-Headers: e.g., Content-Type, Authorization.
+- Access-Control-Allow-Credentials: Set to true if you want to allow sending cookies.
+- Access-Control-Max-Age: Tells the browser how many seconds to cache the preflight result (to avoid sending OPTIONS for every single request).`
     },
     {
         id: 'troubleshooting',
         title: 'Common Errors & Solutions',
-        content: `### 1. "No 'Access-Control-Allow-Origin' header is present"
-**Cause:** The server didn't send the CORS header at all.
-**Fix:** Add the \`Access-Control-Allow-Origin\` header to your server's response.
+        content: `1. "No 'Access-Control-Allow-Origin' header is present"
+Cause: The server didn't send the CORS header at all.
+Fix: Add the Access-Control-Allow-Origin header to your server's response.
 
-### 2. "Method not allowed"
-**Cause:** You are trying a PUT/DELETE but the server only listed GET/POST.
-**Fix:** Update \`Access-Control-Allow-Methods\` on the server.
+2. "Method not allowed"
+Cause: You are trying a PUT/DELETE but the server only listed GET/POST.
+Fix: Update Access-Control-Allow-Methods on the server.
 
-### 3. "The 'Access-Control-Allow-Origin' header contains multiple values"
-**Cause:** The server misconfigured the header to send a list instead of a single origin.
-**Fix:** Ensure only the requesting origin (or \`*\`) is sent.`
+3. "The 'Access-Control-Allow-Origin' header contains multiple values"
+Cause: The server misconfigured the header to send a list instead of a single origin.
+Fix: Ensure only the requesting origin (or *) is sent.`
     }
 ];
 
