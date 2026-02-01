@@ -181,7 +181,7 @@ function SceneContent({ simulation, isRunning, onAnimationComplete, isMobile }: 
             )}
 
             {/* === POST-PROCESSING === */}
-            <EffectComposer disableNormalPass>
+            <EffectComposer>
                 <Bloom
                     intensity={2.5}
                     luminanceThreshold={0.08}

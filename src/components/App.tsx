@@ -156,7 +156,7 @@ export default function App() {
             <ExplanationPanel
                 result={simulation}
                 visible={showExplanation}
-                onLearnMore={(section) => openDocs(section)}
+                onLearnMore={(section: string) => openDocs(section)}
             />
 
             {showDocs && (
