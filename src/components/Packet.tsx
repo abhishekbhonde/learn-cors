@@ -163,7 +163,7 @@ export default function Packet({ simulation, onComplete }: PacketProps) {
                     break;
 
                 case 'TRAVEL_PREFLIGHT':
-                    tl.to(progress.current, { preflight: 1, duration: 1.4, ease: 'power2.inOut' });
+                    tl.to(progress.current, { preflight: 1, duration: 3.5, ease: 'power2.inOut' });
                     break;
 
                 case 'PREFLIGHT_SUCCESS':
@@ -209,7 +209,7 @@ export default function Packet({ simulation, onComplete }: PacketProps) {
                     break;
 
                 case 'TRAVEL_MAIN':
-                    tl.to(progress.current, { main: 1, duration: 2.2, ease: 'power2.inOut' });
+                    tl.to(progress.current, { main: 1, duration: 4.5, ease: 'power2.inOut' });
                     break;
 
                 case 'IMPACT_SUCCESS':
@@ -248,7 +248,7 @@ export default function Packet({ simulation, onComplete }: PacketProps) {
                             responseGroupRef.current.visible = true;
                         }
                     });
-                    tl.to(progress.current, { response: 1, duration: 1.5, ease: 'power2.inOut' });
+                    tl.to(progress.current, { response: 1, duration: 3.0, ease: 'power2.inOut' });
                     tl.call(() => {
                         if (responseGroupRef.current) responseGroupRef.current.visible = false;
                         setShowResponseLabel(false);

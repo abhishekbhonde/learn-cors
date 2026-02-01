@@ -122,32 +122,12 @@ function SceneContent({ simulation, isRunning, onAnimationComplete, isMobile }: 
             />
 
             {/* === BACKGROUND ELEMENTS === */}
-            <Stars radius={100} depth={80} count={6000} factor={6} saturation={0.3} fade speed={0.3} />
+            <Stars radius={100} depth={80} count={4000} factor={6} saturation={0.3} fade speed={0.2} />
 
-            <Sparkles count={150} scale={30} size={3} speed={0.2} opacity={0.4} color="#00e5ff" />
-            <Sparkles count={100} scale={30} size={2} speed={0.3} opacity={0.3} color="#a855f7" />
-            <Sparkles count={50} scale={30} size={1.5} speed={0.4} opacity={0.2} color="#ffffff" />
+            <Sparkles count={80} scale={30} size={2} speed={0.1} opacity={0.3} color="#00e5ff" />
+            <Sparkles count={50} scale={30} size={1.5} speed={0.1} opacity={0.2} color="#a855f7" />
 
-            <ParticleField count={300} />
-
-            {/* === SCENE ELEMENTS === */}
-            <InternetCloud />
-            <DataWaypoints />
-            <Satellites />
-            <TechPlatforms />
-            <ConnectionBeams />
-
-            {/* Holographic displays */}
-            <HolographicDisplay
-                position={[-8, 2, 2]}
-                title="ORIGIN"
-                value="localhost:3000"
-            />
-            <HolographicDisplay
-                position={[8, 2, 2]}
-                title="TARGET"
-                value="api.server.com"
-            />
+            <ParticleField count={200} />
 
             {/* CORS Firewall visualization */}
             <CorsFirewall active={showFirewall && !isRunning} blocked={isBlocked} />
@@ -156,7 +136,7 @@ function SceneContent({ simulation, isRunning, onAnimationComplete, isMobile }: 
             <BrowserModel position={browserPos} />
             <ServerModel position={serverPos} />
 
-            {/* Path visualization */}
+            {/* Path visualization (Static) */}
             <mesh position={[0, 0, 0]}>
                 <tubeGeometry args={[
                     new THREE.CatmullRomCurve3([
@@ -167,11 +147,11 @@ function SceneContent({ simulation, isRunning, onAnimationComplete, isMobile }: 
                         new THREE.Vector3(5, 0, 0),
                     ]),
                     64,
-                    0.03,
+                    0.02,
                     8,
                     false
                 ]} />
-                <meshBasicMaterial color="#00e5ff" transparent opacity={0.2} />
+                <meshBasicMaterial color="#00e5ff" transparent opacity={0.1} />
             </mesh>
 
             {/* Reverse path */}
