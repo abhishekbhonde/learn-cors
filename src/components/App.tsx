@@ -4,6 +4,7 @@ import Scene from './Scene';
 import SplineBackground from './SplineBackground';
 import ControlPanel from './ControlPanel';
 import ExplanationPanel from './ExplanationPanel';
+import Docs from './Docs';
 import { runCorsSimulation, type SimulationOutput, type RequestMethod, type SimulationInput } from '../lib/corsLogic';
 
 const DEMO_SCENARIOS = [
@@ -31,6 +32,10 @@ export default function App() {
     // Demo Mode State
     const [isDemoMode, setIsDemoMode] = useState(false);
     const demoIndexRef = useRef(0);
+
+    // Docs State
+    const [showDocs, setShowDocs] = useState(false);
+    const [activeDocsSection, setActiveDocsSection] = useState('intro');
 
     const handleRun = (overrideInput?: SimulationInput) => {
         if (isRunning) return;
@@ -88,6 +93,11 @@ export default function App() {
         handleRun(scenario as SimulationInput);
     };
 
+    const openDocs = (section: string = 'intro') => {
+        setActiveDocsSection(section);
+        setShowDocs(true);
+    };
+
     return (
         <main className="relative w-full h-screen overflow-hidden bg-black select-none font-sans">
             {/* Header */}
@@ -98,6 +108,12 @@ export default function App() {
                 <p className="text-[11px] text-white/35 tracking-[3px] mt-1 uppercase">
                     3D Web Systems Universe
                 </p>
+                <button
+                    onClick={() => openDocs('intro')}
+                    className="mt-4 pointer-events-auto px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-white/60 hover:text-white hover:bg-white/10 transition-all text-[10px] tracking-[2px] uppercase font-bold"
+                >
+                    📖 View Docs
+                </button>
             </div>
 
             <SplineBackground />
@@ -125,7 +141,15 @@ export default function App() {
             <ExplanationPanel
                 result={simulation}
                 visible={showExplanation}
+                onLearnMore={(section) => openDocs(section)}
             />
+
+            {showDocs && (
+                <Docs
+                    onBack={() => setShowDocs(false)}
+                    activeSection={activeDocsSection}
+                />
+            )}
 
             {/* Footer */}
             <div className="fixed bottom-6 w-full px-8 flex justify-between items-center z-50 pointer-events-auto">

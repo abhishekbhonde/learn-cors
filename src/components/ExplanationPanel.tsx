@@ -5,10 +5,13 @@ import type { SimulationOutput } from '../lib/corsLogic';
 interface Props {
     result: SimulationOutput | null;
     visible: boolean;
+    onLearnMore: (section: string) => void;
 }
 
-export default function ExplanationPanel({ result, visible }: Props) {
+export default function ExplanationPanel({ result, visible, onLearnMore }: Props) {
     if (!result) return null;
+
+    const learnMoreSection = result.preflightRequired ? 'preflight' : result.result.includes('SAME_ORIGIN') ? 'sop' : 'intro';
 
     const isBlocked = result.wasBlocked;
     const statusLabel = isBlocked ? '✗ BLOCKED' : '✓ ALLOWED';
@@ -50,11 +53,20 @@ export default function ExplanationPanel({ result, visible }: Props) {
                         </p>
                     </div>
 
-                    {/* Footer Stats */}
-                    <div className="flex flex-wrap gap-2">
-                        <Chip label="Cross-Origin" value={String(!result.result.includes('SAME_ORIGIN'))} />
-                        <Chip label="Preflight" value={result.preflightRequired ? "Yes" : "No"} />
-                        <Chip label="Final" value={result.wasBlocked ? "Blocked" : "Allowed"} />
+                    {/* Footer Stats & Actions */}
+                    <div className="flex flex-wrap items-center justify-between gap-4 mt-2">
+                        <div className="flex flex-wrap gap-2">
+                            <Chip label="Cross-Origin" value={String(!result.result.includes('SAME_ORIGIN'))} />
+                            <Chip label="Preflight" value={result.preflightRequired ? "Yes" : "No"} />
+                            <Chip label="Final" value={result.wasBlocked ? "Blocked" : "Allowed"} />
+                        </div>
+
+                        <button
+                            onClick={() => onLearnMore(learnMoreSection)}
+                            className="text-[10px] font-bold uppercase tracking-[1px] px-3 py-1.5 rounded-lg bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 hover:bg-cyan-500 hover:text-black transition-all"
+                        >
+                            Learn this concept in detail →
+                        </button>
                     </div>
 
                 </motion.div>
